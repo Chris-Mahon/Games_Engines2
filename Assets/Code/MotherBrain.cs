@@ -11,12 +11,12 @@ public class MotherBrain : FiniteStateMachine {
 	void Start () 
 	{
 		GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, -0), transform.rotation) as GameObject;
-		leader.GetComponent<Pilot>().Initialise(leader.transform.forward * 100);
+		leader.GetComponent<Pilot>().Initialise(new Vector3(1, 0, -1f)*1000);
 		leader.name = "Ally Leader";
-		GameObject follower = Instantiate(drone, transform.position+new Vector3(0, -10, 0), transform.rotation) as GameObject;
+		GameObject follower = Instantiate(drone, Vector3.Scale(transform.position+new Vector3(0, -10, 0), leader.transform.forward), leader.transform.rotation) as GameObject;
 		follower.GetComponent<Pilot>().Initialise (leader, -1);
 		follower.name = "Left Wing";
-		GameObject follower2 = Instantiate(drone, transform.position+new Vector3(0, -10, 0), transform.rotation) as GameObject;
+		GameObject follower2 = Instantiate(drone, Vector3.Scale(transform.position + new Vector3(0, -10, 0), leader.transform.forward), leader.transform.rotation) as GameObject;
 		follower2.GetComponent<Pilot>().Initialise (leader, 1);
 		follower2.name = "Right Wing";
 	}

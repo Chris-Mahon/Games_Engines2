@@ -113,7 +113,6 @@ GameObject:
   - 4: {fileID: 242707285}
   - 95: {fileID: 242707289}
   - 64: {fileID: 242707288}
-  - 54: {fileID: 242707287}
   - 114: {fileID: 242707286}
   m_Layer: 0
   m_Name: Enemy Mothership
@@ -150,22 +149,6 @@ MonoBehaviour:
   targetShip: {fileID: 179006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
   drone: {fileID: 109208, guid: da44771b76171624789e61f7f503f7da, type: 2}
   remainingPeople: 0
---- !u!54 &242707287
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5433096, guid: e2aa65984454a4e4190cfb1fb037198d,
-    type: 2}
-  m_PrefabInternal: {fileID: 975897789}
-  m_GameObject: {fileID: 242707284}
-  serializedVersion: 2
-  m_Mass: 1000
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!64 &242707288
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -564,7 +547,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5433096, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
   m_RootGameObject: {fileID: 242707284}
   m_IsPrefabParent: 0
@@ -620,7 +604,8 @@ Prefab:
       propertyPath: m_Mass
       value: 1000
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5479014, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
   m_RootGameObject: {fileID: 1591368235}
   m_IsPrefabParent: 0
@@ -763,7 +748,6 @@ GameObject:
   - 95: {fileID: 1591368240}
   - 64: {fileID: 1591368239}
   - 114: {fileID: 1591368238}
-  - 54: {fileID: 1591368237}
   m_Layer: 0
   m_Name: Ally Mothership
   m_TagString: Untagged
@@ -785,22 +769,6 @@ Transform:
   - {fileID: 937774452}
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!54 &1591368237
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5479014, guid: cc788efe5f4bac940bf4101d9a1c594e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1068847417}
-  m_GameObject: {fileID: 1591368235}
-  serializedVersion: 2
-  m_Mass: 1000
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1591368238
 MonoBehaviour:
   m_ObjectHideFlags: 0

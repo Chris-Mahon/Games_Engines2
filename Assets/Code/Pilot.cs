@@ -39,6 +39,7 @@ public class Pilot : FiniteStateMachine
 		this.offset = offset;
 		transform.position += ((new Vector3 (10, 0, 0) * offset) + new Vector3(0, 0, -10));
 		currState = new MoveState (this);
+        currState.Enter();
     }
 
     public void Initialise(Vector3 targetPos)//GameObject target)
@@ -48,6 +49,8 @@ public class Pilot : FiniteStateMachine
         fuel = 100;
 		this.targetPos = targetPos;
 		currState = new MoveState (this);
+        transform.forward += targetPos;
+        currState.Enter();
     }
 
 	public void Initialise()

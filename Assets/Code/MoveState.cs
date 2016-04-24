@@ -30,67 +30,46 @@ public class MoveState : State {
 		
 		tempForce += (ObsAvoidance ()/totalWeight) * owner.moveWeight;
 		force += tempForce;
-		Debug.Log (force);
-		force = Vector3.ClampMagnitude(force, owner.maxForce);
+		force = Vector3.ClampMagnitude(force, owner.speed);
 
-		Vector3 acceleration = force / owner.transform.gameObject.GetComponent<Rigidbody>().mass;        
-		Debug.Log (force);
+		Vector3 acceleration = force / owner.transform.gameObject.GetComponent<Rigidbody>().mass; 
 		owner.moveForce += acceleration * Time.deltaTime;        
-		owner.moveForce = Vector3.ClampMagnitude(owner.moveForce, owner.maxForce);
+		owner.moveForce = Vector3.ClampMagnitude(owner.moveForce, owner.speed);
 		if (owner.moveForce.magnitude > float.Epsilon)
 		{
-			owner.transform.forward = owner.moveForce.normalized;
+			//owner.transform.forward = owner.moveForce.normalized;
 			owner.transform.position += owner.moveForce;
 		}
 
-        /*float totalWeight = (owner.avoidWeight + owner.moveWeight);
-        Vector3 force = Vector3.zero;
-        bool cont = true;
-		if (cont)
-		{
-			force = ObsAvoidance();
-			cont = ForceApplier((force / totalWeight) * owner.avoidWeight);
-		}
-		if (cont) 
-		{
-			if (owner.isLeader)
-			{
-				force = Arrive();
-			}
-			else
-			{
-				force = OffPursue(-1*Vector3(1, 1, 1));
-			}
-			cont = ForceApplier((force / totalWeight) * owner.moveWeight);
-		}*/
     }
 
 	public Vector3 OffsetPursue(GameObject leader, Vector3 offset)
 	{
-		Vector3 relOffset = Vector3.Scale(offset, leader.transform.forward.normalized);
-		Vector3 target = leader.transform.position + offset;
-		Vector3 toTarget = owner.transform.position - target;
-		float dist = toTarget.magnitude;
-		float lookAhead = dist / owner.maxForce;
-		Debug.Log (target);
-		Vector3 offsetPursueTargetPos = target + (lookAhead * leader.GetComponent<Pilot>().moveForce.normalized);
-		return Arrive(offsetPursueTargetPos);
+
+        Vector3 target = Vector3.zero;
+        target = leader.transform.TransformPoint(offset);
+        Vector3 toTarget = target - owner.transform.position;
+        float dist = toTarget.magnitude;
+        float lookAhead = dist / owner.speed;
+
+        Vector3 offsetPursueTargetPos = target + (lookAhead * leader.GetComponent<Pilot>().moveForce);
+        return Arrive(offsetPursueTargetPos);
 	}
 
 	private Vector3 Arrive(Vector3 targetPos)
 	{
 		Vector3 toTarget = targetPos - owner.transform.position;
 		
-		float slowingDistance = 15.0f;
+		float slowingDistance = 40.0f;
 		float distance = toTarget.magnitude;
-		if (distance < 4f)
+		if (distance < 2f)
 		{
 			owner.moveForce = Vector3.zero;
 			return Vector3.zero;
 		} 
-		float ramped = owner.maxForce * (distance / slowingDistance);
+		float ramped = owner.speed * (distance / slowingDistance);
 		
-		float clamped = Mathf.Min(ramped, owner.maxForce);
+		float clamped = Mathf.Min(ramped, owner.speed);
 		Vector3 desired = clamped * (toTarget / distance);
 
 		return desired - owner.moveForce;
@@ -121,7 +100,7 @@ public class MoveState : State {
 
 	public override void Enter()
 	{
-		
+        owner.GetComponent<Pilot>().speed = owner.GetComponent<Pilot>().maxForce;
 	}
 	
 	public override void Exit()
