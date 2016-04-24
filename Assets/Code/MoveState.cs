@@ -15,17 +15,23 @@ public class MoveState : State {
         float totalWeight = (owner.avoidWeight + owner.moveWeight);
         Vector3 force = Vector3.zero;
         bool cont = true;
-        force = ObsAvoidance();
-        cont = ForceApplier((force / totalWeight) * owner.avoidWeight);
-        if (owner.isLeader)
-        {
-            force = Seek();
-        }
-        else
-        {
-            force = OffPursue();
-        }
-        cont = ForceApplier((force / totalWeight) * owner.moveWeight);
+		if (cont)
+		{
+			force = ObsAvoidance();
+			cont = ForceApplier((force / totalWeight) * owner.avoidWeight);
+		}
+		if (cont) 
+		{
+			if (owner.isLeader)
+			{
+				force = Seek();
+			}
+			else
+			{
+				force = OffPursue();
+			}
+			cont = ForceApplier((force / totalWeight) * owner.moveWeight);
+		}
 
     }
 
@@ -46,17 +52,17 @@ public class MoveState : State {
 
     private Vector3 Seek()
     {
-        return Vector3.zero;
+        return new Vector3(0, 1, 0);
     }
 
     private Vector3 ObsAvoidance()
     {
-        return Vector3.zero;
+        return new Vector3(0, 1, 0);
     }
 
     public bool ForceApplier(Vector3 force)
     {
-        owner.transform.position += force;
+		Debug.Log (force);
         if (owner.maxMovement - force.magnitude > 0)
         {
             owner.maxMovement -= force.magnitude;

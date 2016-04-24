@@ -7,7 +7,7 @@ public class Pilot : FiniteStateMachine
     public bool isLeader;
     public bool isAlive;
     public float maxMovement;
-    public Vector3 moveForce;
+    public Vector3 moveForce = Vector3.zero;
 
     private int fuel;
     private Vector3 home;
@@ -15,7 +15,8 @@ public class Pilot : FiniteStateMachine
     [HideInInspector]
     public int health;
     public State currState;
-
+	public string State = "";
+	public float speed;
     [Header("Behaviour")]
     public int avoidWeight;
     public int moveWeight;
@@ -25,6 +26,7 @@ public class Pilot : FiniteStateMachine
     {
         isInitialised = false;
         home = transform.position;
+		Initialise ();
 	}
 
     void Initialise(GameObject leader, int offset)
@@ -33,7 +35,7 @@ public class Pilot : FiniteStateMachine
         isAlive = true;
         fuel = 100;
         maxMovement = 20;
-
+		currState = new MoveState (this);
     }
 
     void Initialise(GameObject target)
@@ -41,16 +43,21 @@ public class Pilot : FiniteStateMachine
         isLeader = true;
         isAlive = true;
         fuel = 100;
-        maxMovement = 20;
+		maxMovement = 20;
+		currState = new MoveState (this);
     }
+
+	void Initialise()
+	{
+		isLeader = true;
+		isAlive = true;
+		fuel = 100;
+		maxMovement = 20;
+		currState = new MoveState (this);
+	}
 
     void Update ()
     {
-        if (isAlive)
-        {
-            moveForce = Vector3.zero;
-            maxMovement = 20;
-        }
         if (health < 0)
         {
             if (currState != null)
@@ -67,6 +74,7 @@ public class Pilot : FiniteStateMachine
         {
             currState.Update();
         }
-        transform.position += moveForce;
+		transform.forward += moveForce;
+		transform.position += moveForce*speed;
 	}
 }
