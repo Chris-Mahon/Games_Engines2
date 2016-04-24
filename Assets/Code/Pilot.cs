@@ -3,56 +3,59 @@ using System.Collections;
 
 public class Pilot : FiniteStateMachine
 {
-    private bool isInitialised;
     public bool isLeader;
     public bool isAlive;
-    public float maxMovement;
+    public float maxForce;
     public Vector3 moveForce = Vector3.zero;
 
     private int fuel;
-    private Vector3 home;
+	private Vector3 home;
+	public Vector3 targetPos;
 
     [HideInInspector]
-    public int health;
+    public int health = 10;
     public State currState;
 	public string State = "";
 	public float speed;
     [Header("Behaviour")]
     public int avoidWeight;
     public int moveWeight;
+	public GameObject target; 
+	public int offset = 0;
 
 	// Use this for initialization
 	void Start ()
     {
-        isInitialised = false;
+        //isInitialised = false;
         home = transform.position;
-		Initialise ();
 	}
 
-    void Initialise(GameObject leader, int offset)
+    public void Initialise(GameObject leader, int offset)
     {
         isLeader = false;
         isAlive = true;
         fuel = 100;
-        maxMovement = 20;
+		target = leader;
+		this.offset = offset;
+		transform.position += ((new Vector3 (10, 0, 0) * offset) + new Vector3(0, 0, -10));
 		currState = new MoveState (this);
     }
 
-    void Initialise(GameObject target)
+    public void Initialise(Vector3 targetPos)//GameObject target)
     {
         isLeader = true;
         isAlive = true;
         fuel = 100;
-		maxMovement = 20;
+		this.targetPos = targetPos;
 		currState = new MoveState (this);
     }
 
-	void Initialise()
+	public void Initialise()
 	{
 		isLeader = true;
 		isAlive = true;
 		fuel = 100;
-		maxMovement = 20;
+		//maxMovement = 20;
 		currState = new MoveState (this);
 	}
 
@@ -71,10 +74,11 @@ public class Pilot : FiniteStateMachine
             }
         }
         if (currState != null)
-        {
+		{
+			//currTotalForce
             currState.Update();
         }
-		transform.forward += moveForce;
-		transform.position += moveForce*speed;
+		transform.forward += moveForce*speed;
+		//transform.position += moveForce;
 	}
 }
