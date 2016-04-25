@@ -42,12 +42,12 @@ public class Pilot : FiniteStateMachine
         currState.Enter();
     }
 
-    public void Initialise(Vector3 targetPos)//GameObject target)
+    public void Initialise(GameObject target)
     {
         isLeader = true;
         isAlive = true;
         fuel = 100;
-		this.targetPos = targetPos;
+		this.target = target;
 		currState = new MoveState (this);
         transform.forward += targetPos;
         currState.Enter();

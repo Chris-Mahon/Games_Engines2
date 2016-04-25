@@ -11,7 +11,7 @@ public class MotherBrain : FiniteStateMachine {
 	void Start () 
 	{
 		GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, -0), transform.rotation) as GameObject;
-		leader.GetComponent<Pilot>().Initialise(new Vector3(1, 0, -1f)*1000);
+		leader.GetComponent<Pilot>().Initialise(targetShip);
 		leader.name = "Ally Leader";
 		GameObject follower = Instantiate(drone, Vector3.Scale(transform.position+new Vector3(0, -10, 0), leader.transform.forward), leader.transform.rotation) as GameObject;
 		follower.GetComponent<Pilot>().Initialise (leader, -1);

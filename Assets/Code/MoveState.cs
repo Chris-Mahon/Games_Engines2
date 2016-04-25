@@ -21,7 +21,7 @@ public class MoveState : State {
 
 		if (owner.isLeader)
 		{
-			tempForce += Arrive(owner.targetPos);//.transform.position);
+			tempForce += Arrive(owner.target.transform.position);
 		}
 		else
 		{
@@ -37,7 +37,6 @@ public class MoveState : State {
 		owner.moveForce = Vector3.ClampMagnitude(owner.moveForce, owner.speed);
 		if (owner.moveForce.magnitude > float.Epsilon)
 		{
-			//owner.transform.forward = owner.moveForce.normalized;
 			owner.transform.position += owner.moveForce;
 		}
 
