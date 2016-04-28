@@ -10,14 +10,14 @@ public class MotherBrain : FiniteStateMachine {
 	// Use this for initialization
 	void Start () 
 	{
-		GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, -0), transform.rotation) as GameObject;
-		leader.GetComponent<Pilot>().Initialise(targetShip);
+		GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, 0), transform.rotation) as GameObject;
+		leader.GetComponent<Pilot>().Initialise(targetShip, this.gameObject);
 		leader.name = "Ally Leader";
 		GameObject follower = Instantiate(drone, Vector3.Scale(transform.position+new Vector3(0, -10, 0), leader.transform.forward), leader.transform.rotation) as GameObject;
-		follower.GetComponent<Pilot>().Initialise (leader, -1);
+		follower.GetComponent<Pilot>().Initialise (leader, this.gameObject, -1);
 		follower.name = "Left Wing";
 		GameObject follower2 = Instantiate(drone, Vector3.Scale(transform.position + new Vector3(0, -10, 0), leader.transform.forward), leader.transform.rotation) as GameObject;
-		follower2.GetComponent<Pilot>().Initialise (leader, 1);
+		follower2.GetComponent<Pilot>().Initialise (leader, this.gameObject, 1);
 		follower2.name = "Right Wing";
 	}
 	

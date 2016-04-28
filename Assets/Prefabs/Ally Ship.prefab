@@ -237,7 +237,7 @@ BoxCollider:
   m_GameObject: {fileID: 124458}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 3, z: 8}
   m_Center: {x: 0, y: 0, z: 2}
@@ -271,12 +271,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLeader: 0
   isAlive: 0
+  cannonReady: 1
   maxForce: 1
   moveForce: {x: 0, y: 0, z: 0}
+  home: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
-  health: 0
+  bullet: {fileID: 146410, guid: 31762b63b8f397249a5b7a6b03e6bf8f, type: 2}
+  explosion: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
+  health: 10
   State: 
-  speed: 5
+  speed: 1
   avoidWeight: 2
   moveWeight: 1
   target: {fileID: 0}
@@ -292,6 +296,54 @@ Prefab:
       propertyPath: m_TagString
       value: AllyDrone
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: radius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Radius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Power
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cannonReady
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 146410, guid: 31762b63b8f397249a5b7a6b03e6bf8f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 124458}

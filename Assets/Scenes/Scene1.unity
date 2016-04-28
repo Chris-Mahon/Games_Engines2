@@ -85,6 +85,10 @@ NavMeshSettings:
     cellSize: .166666657
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &855107856 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 133086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
+  m_PrefabInternal: {fileID: 975897789}
 --- !u!1001 &975897789
 Prefab:
   m_ObjectHideFlags: 0
@@ -134,7 +138,7 @@ Prefab:
       objectReference: {fileID: 109208, guid: da44771b76171624789e61f7f503f7da, type: 2}
     - target: {fileID: 11487174, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5433096, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
@@ -182,7 +186,7 @@ Prefab:
     - target: {fileID: 11479014, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: targetShip
       value: 
-      objectReference: {fileID: 133086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
+      objectReference: {fileID: 855107856}
     - target: {fileID: 11479014, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: drone
       value: 
@@ -277,7 +281,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1325963078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: -40, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -294,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  speed: 3
 --- !u!1 &2058745170
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +324,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
-  m_Color: {r: 1, g: .956862748, b: .839215696, a: 1}
+  m_Color: {r: .871372521, g: .839215696, b: 1, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30

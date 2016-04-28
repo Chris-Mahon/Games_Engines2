@@ -31,7 +31,7 @@ GameObject:
   - 54: {fileID: 5409206}
   m_Layer: 0
   m_Name: Enemy Ship
-  m_TagString: AllyDrone
+  m_TagString: EnemyDrone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,12 +210,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLeader: 0
   isAlive: 0
-  maxForce: 10
+  cannonReady: 0
+  maxForce: 1
   moveForce: {x: 0, y: 0, z: 0}
+  home: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
-  health: 0
+  bullet: {fileID: 146410, guid: 31762b63b8f397249a5b7a6b03e6bf8f, type: 2}
+  explosion: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
+  health: 10
   State: 
-  speed: 5
+  speed: 1
   avoidWeight: 2
   moveWeight: 1
   target: {fileID: 0}
@@ -229,8 +233,32 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_TagString
-      value: AllyDrone
+      value: EnemyDrone
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 146410, guid: 31762b63b8f397249a5b7a6b03e6bf8f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 109208}

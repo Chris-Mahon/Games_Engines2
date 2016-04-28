@@ -25,7 +25,14 @@ public class MoveState : State {
 		}
 		else
 		{
-			tempForce += OffsetPursue(owner.target, new Vector3(20*owner.offset, 0, -20));
+            if (owner.target.GetComponent<Pilot>().isAlive)
+            {
+                tempForce += OffsetPursue(owner.target, new Vector3(10 * owner.offset, 0, -5));
+            }
+            else
+            {
+                tempForce += Arrive(owner.home.transform.position);
+            }
 		}
 		
 		tempForce += (ObsAvoidance ()/totalWeight) * owner.moveWeight;
@@ -70,7 +77,7 @@ public class MoveState : State {
 		
 		float clamped = Mathf.Min(ramped, owner.speed);
 		Vector3 desired = clamped * (toTarget / distance);
-
+        
 		return desired - owner.moveForce;
 	}
 
@@ -79,31 +86,21 @@ public class MoveState : State {
         return new Vector3(0, 0, 0);
     }
 
-    /*public bool ForceApplier(Vector3 force)
-    {
-        if (owner.currTotalForce - force.magnitude > 0)
-        {
-            owner.currTotalForce -= force.magnitude;
-        }
-        else
-        {
-            force = force / 20;
-//            force = force * owner.maxMovement;
-            owner.currTotalForce = 0;
-			Debug.Log (owner.moveForce);
-            owner.moveForce += force;
-            return false;
-        }
-        return true;
-    }*/
-
 	public override void Enter()
 	{
         owner.GetComponent<Pilot>().speed = owner.GetComponent<Pilot>().maxForce;
+        owner.State = "TargetSeeking";
 	}
 	
 	public override void Exit()
 	{
 		
 	}
+
+    IEnumerator Fire()
+    {
+        owner.cannonReady = true;
+
+        yield return null;
+    }
 }

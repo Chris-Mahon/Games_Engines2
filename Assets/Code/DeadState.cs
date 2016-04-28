@@ -16,6 +16,7 @@ public class DeadState : State {
     public override void Enter()
     {
         owner.isAlive = false;
+        owner.State = "dead";
     }
 
     public override void Exit()
