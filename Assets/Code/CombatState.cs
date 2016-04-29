@@ -102,8 +102,10 @@ public class CombatState : State
         while (true)
         {
             owner.cannonReady = true;
+            
+            yield return new WaitForSeconds(10);
         }
-        WaitForSeconds(10);
-        yield return null;
     }
+
+
 }

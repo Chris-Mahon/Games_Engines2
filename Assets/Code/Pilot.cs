@@ -13,7 +13,7 @@ public class Pilot : FiniteStateMachine
     private int fuel;
 	public GameObject home;
 	public Vector3 targetPos;
-    public GameObject bullet = null;
+    public GameObject bullet;
     public GameObject explosion;
     public int health = 10;
     public State currState;
@@ -41,7 +41,6 @@ public class Pilot : FiniteStateMachine
 		this.offset = offset;
 		transform.position += ((new Vector3 (10, 0, 0) * offset) + new Vector3(0, 0, -10));
         StateChange(new MoveState(this));
-        currState.Enter();
     }
 
     public void Initialise(GameObject target, GameObject mother)
@@ -53,7 +52,6 @@ public class Pilot : FiniteStateMachine
         home = mother;
 		StateChange(new MoveState (this));
         transform.forward += targetPos;
-        currState.Enter();
     }
 
 	public void Initialise()
@@ -67,9 +65,13 @@ public class Pilot : FiniteStateMachine
 
     void Update ()
     {
-        if (cannonReady)
+        if (cannonReady && isAlive)
         {
-            //GameObject bullet = Instantiate(bullet, transform.position, Quaternion.LookRotation(transform.position)) as GameObject;
+            GameObject bull = Instantiate(bullet, transform.position, transform.rotation) as GameObject;
+            bull.GetComponent<ProjectileMove>().Initialise(tag);
+            Physics.IgnoreCollision(bull.GetComponent<Collider>(), GetComponent<Collider>());
+            Debug.Log(bull.transform.forward - transform.forward);
+            cannonReady = false;
         }
         if (isLeader)
         {
@@ -80,7 +82,7 @@ public class Pilot : FiniteStateMachine
 
                     State = "Engaging";
                     transform.forward = -transform.right;
-                    targetPos = transform.position + transform.forward*50;
+                    targetPos = transform.position + transform.forward * 50;
                     StateChange(new CombatState(this));
                 }
             }
@@ -97,17 +99,16 @@ public class Pilot : FiniteStateMachine
             if (State != "dead")
             {
                 GameObject thing = Instantiate(explosion, transform.position - new Vector3(0, 25, 0), Quaternion.identity) as GameObject;
-
+                thing.transform.parent = transform;
                 StateChange(new DeadState(this));
+                StartCoroutine(JunkRemoval());
             }
         }
         if (currState != null)
 		{
-			//currTotalForce
             currState.Update();
         }
 		transform.forward += moveForce*speed;
-		//transform.position += moveForce;
 	}
 
     void OnCollisionEnter(Collision collision)
@@ -144,5 +145,11 @@ public class Pilot : FiniteStateMachine
         {
             currState.Enter();
         }
+    }
+
+    IEnumerator JunkRemoval()
+    {
+        yield return new WaitForSeconds(60);
+        Destroy(transform.gameObject);
     }
 }

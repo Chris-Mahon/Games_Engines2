@@ -6,8 +6,14 @@ public class CameraMove : MonoBehaviour {
     [Range(0.01f, 10)]
     public float speed = 5;
 
-	// Use this for initialization
-	void Start ()
+   public Targets toFind;
+    // Use this for initialization
+    public enum Targets
+    {
+        AllyDrone, EnemyDrone
+    }
+
+    void Start ()
     {
 	
 	}
@@ -20,14 +26,22 @@ public class CameraMove : MonoBehaviour {
         if (target == null)
         {
             GameObject[] drones = GameObject.FindGameObjectsWithTag("AllyDrone");
+            if (drones[0] == null)
+            {
+                return;
+            }
             for (int i = 0; i < drones.Length; i++)
             {
-                if (drones[i].GetComponent<Pilot>().isLeader)
+                Debug.Log(drones[i].transform.position);
+                if (drones[i].GetComponent<Pilot>()!=null)
                 {
-                    target = drones[i];
-                    transform.position = (target.transform.position - (target.transform.forward*50)) + new Vector3(0, 30, 0);
-                    toTarget = transform.position - target.transform.position;
-                    toTarget = target.transform.InverseTransformDirection(toTarget);
+                    if (drones[i].GetComponent<Pilot>().isLeader)
+                    {
+                        target = drones[i];
+                        transform.position = (target.transform.position - (target.transform.forward * 50)) + new Vector3(0, 30, 0);
+                        toTarget = transform.position - target.transform.position;
+                        toTarget = target.transform.InverseTransformDirection(toTarget);
+                    }
                 }
             }
         }

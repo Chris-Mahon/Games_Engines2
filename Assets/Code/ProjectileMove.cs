@@ -2,19 +2,28 @@
 using System.Collections;
 
 public class ProjectileMove : MonoBehaviour {
-    string sourceTag;
+    public Pilot owner;
     // Use this for initialization
     void Start()
     {
     }
 
-    void Initialise(string tag)
+    public void Initialise(string source)
     {
-        sourceTag = tag;
+        tag = source;
     }
 	// Update is called once per frame
 	void Update ()
     {
-        transform.position += transform.forward.normalized*Time.deltaTime;
-	}
+        this.GetComponent<Rigidbody>().AddForce(Vector3.right * 100, ForceMode.Acceleration);
+        //transform.position += transform.forward*Time.deltaTime*100;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (tag != collision.gameObject.tag)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

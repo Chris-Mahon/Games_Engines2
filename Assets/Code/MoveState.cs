@@ -90,7 +90,8 @@ public class MoveState : State {
 	{
         owner.GetComponent<Pilot>().speed = owner.GetComponent<Pilot>().maxForce;
         owner.State = "TargetSeeking";
-	}
+        owner.StartCoroutine(Fire());
+    }
 	
 	public override void Exit()
 	{
@@ -99,8 +100,12 @@ public class MoveState : State {
 
     IEnumerator Fire()
     {
-        owner.cannonReady = true;
-
-        yield return null;
+        while (true)
+        {
+            owner.cannonReady = true;
+            Debug.Log("READY");
+            yield return new WaitForSeconds(5);
+        }
     }
+
 }
