@@ -39,29 +39,28 @@ public class Boid : MonoBehaviour {
         }
         if (isAvoiding)
         {
-            force += (ObsAvoidance()/totalWeight)*myFSM.avoidWeight;
+            //force += (ObsAvoidance()/totalWeight)*myFSM.avoidWeight;
         }
         if (isRunning)
         {
-            force += (Arrive(target.transform.position)/totalWeight)*myFSM.fleeWeight;
+            //force += (Arrive(target.transform.position)/totalWeight)*myFSM.fleeWeight;
         }
         if (isWandering)
         {
-            force += Vector3.zero;
+           // force += Vector3.zero;
         }
-        Debug.Log("force: " + moveForce + " from Boid");
 
         force = Vector3.ClampMagnitude(force, myFSM.speed);
 
         Vector3 acceleration = force / transform.gameObject.GetComponent<Rigidbody>().mass;
         moveForce += acceleration * Time.deltaTime;
         moveForce = Vector3.ClampMagnitude(moveForce, myFSM.speed);
+        Debug.Log("force: " + moveForce + " from Boid");
         if (moveForce.magnitude > float.Epsilon)
         {
             transform.position += moveForce;
             transform.forward += moveForce*myFSM.speed;
         }
-
     }
 
     private Vector3 Arrive(Vector3 targetPos)

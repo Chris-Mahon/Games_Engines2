@@ -173,7 +173,7 @@ Prefab:
       objectReference: {fileID: 109208, guid: da44771b76171624789e61f7f503f7da, type: 2}
     - target: {fileID: 11487174, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 133086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_TagString

@@ -14,13 +14,14 @@ public class MoveState : State {
     public override void Update()
     {
         Debug.Log(owner.target.GetComponent<Boid>().myFSM.isAlive);
-        if (owner.target.GetComponent <Boid>().myFSM.isAlive)
+        if (!owner.target.GetComponent <Boid>().myFSM.isAlive)
         {
-            owner.myBoid.targetPos = owner.target.transform.position;
+            Debug.Log("Hi "+owner.target.GetComponent<Boid>().myFSM.isAlive);
+            owner.myBoid.targetPos = owner.home.transform.position;
         }
         else
         {
-            owner.myBoid.targetPos = owner.home.transform.position;
+            owner.myBoid.targetPos = owner.target.transform.position;
         }
     }
 

@@ -48,10 +48,8 @@ public class CameraMove : MonoBehaviour {
         else
         {
             Vector3 worldTarget = target.transform.TransformPoint(toTarget);
-            //Debug.Log("ToTarget: " +toTarget + " world: " + worldTarget + " Target Pos: "+ target.transform.position);
             transform.position = Vector3.Lerp(transform.position, worldTarget, Time.deltaTime * speed);
             transform.rotation = Quaternion.Slerp(transform.rotation, target.transform.rotation, Time.deltaTime * speed);
-            //transform.LookAt(target.transform);
 
         }
 	}
