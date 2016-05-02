@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Pilot : FiniteStateMachine
 {
-    public bool isLeader;
     public bool cannonReady;
+    public bool debugMode;
 
     public float maxForce;
     public GameObject home;
@@ -16,7 +16,6 @@ public class Pilot : FiniteStateMachine
     public Boid myBoid;
     [Header("Behaviour")]
 	public GameObject target; 
-	public int offset = 0;
 
 	// Use this for initialization
 	public override void Start ()
@@ -44,9 +43,8 @@ public class Pilot : FiniteStateMachine
         myBoid = GetComponent<Boid>();
         myBoid.fuel = maxFuel;
         this.target = target;
-
         home = mother;
-		StateChange(new MoveState (this));
+		StateChange(new MoveState(this));
         transform.forward += targetPos;
     }
 
@@ -65,12 +63,13 @@ public class Pilot : FiniteStateMachine
         {
             if (State == "TargetSeeking")
             {
-                if (Vector3.Distance(transform.position, target.transform.position) < 80)
+                if (Vector3.Distance(transform.position, target.transform.position) < 200)
                 {
 
                     State = "Engaging";
-                    targetPos = transform.position - (transform.right * 50);
+                    targetPos = transform.position - (transform.right * 100);
                     StateChange(new CombatState(this));
+                    myBoid.moveForce -= myBoid.moveForce / 4;
                 }
             }
         }
@@ -102,23 +101,10 @@ public class Pilot : FiniteStateMachine
         if (collision.gameObject.tag != tag)
         {
             this.health = 0;
-            Debug.Log("Oww");
         }
     }
 
-    void OnDrawGizmos()
-    {
-        if (State == "TargetSeeking")
-        {
-            Gizmos.DrawLine(transform.position, target.transform.position);
-        }
-        if (State == "Engaging")
-        {
-            Gizmos.DrawLine(transform.position, targetPos);
 
-        }
-
-    }
 
     void StateChange(State newState)
     {

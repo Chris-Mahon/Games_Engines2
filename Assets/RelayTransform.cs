@@ -11,6 +11,5 @@ public class RelayTransform : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.forward = forward;
-        Debug.Log("Location: " + transform.position + "Rotation: " +transform.rotation + "Forward: "+ transform.forward);
 	}
 }

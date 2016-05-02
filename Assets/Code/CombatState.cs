@@ -92,8 +92,11 @@ public class CombatState : State
         owner.State = "Engaging";
         owner.myBoid.isMoving = true;
         owner.myBoid.isAvoiding = true;
-        owner.myBoid.target = null;
-        owner.myBoid.targetPos = (owner.transform.position -(owner.transform.right*100));
+        if (owner.isLeader)
+        {
+            owner.myBoid.myTarget = null;
+            owner.myBoid.targetPos = (owner.transform.position - (owner.transform.right * 100));
+        }
     }
 
     public override void Exit()

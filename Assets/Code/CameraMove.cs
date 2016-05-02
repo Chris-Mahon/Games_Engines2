@@ -32,7 +32,6 @@ public class CameraMove : MonoBehaviour {
             }
             for (int i = 0; i < drones.Length; i++)
             {
-                Debug.Log(drones[i].transform.position);
                 if (drones[i].GetComponent<Pilot>()!=null)
                 {
                     if (drones[i].GetComponent<Pilot>().isLeader)

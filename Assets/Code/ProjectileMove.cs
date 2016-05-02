@@ -16,7 +16,7 @@ public class ProjectileMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        this.GetComponent<Rigidbody>().AddForce(Vector3.right * 100, ForceMode.Acceleration);
+        this.GetComponent<Rigidbody>().AddForce(transform.forward * 100, ForceMode.Acceleration);
         //transform.position += transform.forward*Time.deltaTime*100;
     }
 

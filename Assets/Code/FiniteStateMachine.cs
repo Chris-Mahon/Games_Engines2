@@ -11,6 +11,8 @@ public abstract class FiniteStateMachine : MonoBehaviour
     public bool isAlive;
     public State currState;
     public string State = "";
+    public bool isLeader = false;
+    public int offset = 0;
 
     // Use this for initialization
     public abstract void Start();

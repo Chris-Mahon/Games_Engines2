@@ -6,7 +6,7 @@ public class Boid : MonoBehaviour {
     public float fuel;
     public Vector3 moveForce = Vector3.zero;
     public Vector3 targetPos;
-    public GameObject target;
+    public GameObject myTarget;
     public bool isMoving, isAvoiding, isRunning, isWandering;
 
     // Use this for initialization
@@ -35,19 +35,26 @@ public class Boid : MonoBehaviour {
 
         if (isMoving)
         {
-            force += (Arrive(targetPos)/totalWeight)*myFSM.moveWeight;
+            if (myFSM.isLeader)
+            {
+                force += (Arrive(targetPos) / totalWeight) * myFSM.moveWeight;
+            }
+            else
+            {
+                force += (OffsetPursue(myTarget, new Vector3(10*myFSM.offset, 0, -10)) / totalWeight) * myFSM.moveWeight;
+            }
         }
         if (isAvoiding)
         {
-            //force += (ObsAvoidance()/totalWeight)*myFSM.avoidWeight;
+            force += (ObsAvoidance()/totalWeight)*myFSM.avoidWeight;
         }
         if (isRunning)
         {
-            //force += (Arrive(target.transform.position)/totalWeight)*myFSM.fleeWeight;
+            force += (Arrive(targetPos)/totalWeight)*myFSM.fleeWeight;
         }
         if (isWandering)
         {
-           // force += Vector3.zero;
+           force += Vector3.zero;
         }
 
         force = Vector3.ClampMagnitude(force, myFSM.speed);
@@ -55,11 +62,10 @@ public class Boid : MonoBehaviour {
         Vector3 acceleration = force / transform.gameObject.GetComponent<Rigidbody>().mass;
         moveForce += acceleration * Time.deltaTime;
         moveForce = Vector3.ClampMagnitude(moveForce, myFSM.speed);
-        Debug.Log("force: " + moveForce + " from Boid");
         if (moveForce.magnitude > float.Epsilon)
         {
-            transform.position += moveForce;
-            transform.forward += moveForce*myFSM.speed;
+            transform.position += moveForce * myFSM.speed;
+            transform.forward += moveForce;
         }
     }
 
@@ -85,9 +91,8 @@ public class Boid : MonoBehaviour {
     public Vector3 OffsetPursue(GameObject leader, Vector3 offset)
     {
 
-        Vector3 target = Vector3.zero;
-        target = leader.transform.TransformPoint(offset);
-        Vector3 toTarget = target - transform.position;
+        Vector3 target = leader.transform.TransformPoint(offset);
+        Vector3 toTarget = transform.position - target;
         float dist = toTarget.magnitude;
         float lookAhead = dist / myFSM.speed;
 
@@ -122,4 +127,13 @@ public class Boid : MonoBehaviour {
 
         return totalWeight;
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, targetPos);
+
+    }
+
 }
+
+

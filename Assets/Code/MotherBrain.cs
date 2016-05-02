@@ -15,14 +15,14 @@ public class MotherBrain : FiniteStateMachine
         isAlive = true;
 
         GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, 0), transform.rotation) as GameObject;
-		leader.GetComponent<Pilot>().Initialise(targetShip, this.gameObject);
+		leader.GetComponent<Pilot>().Initialise(targetShip, gameObject);
 		leader.name = "Ally Leader";
-		/*GameObject follower = Instantiate(drone, Vector3.Scale(transform.position+new Vector3(0, -10, 0), leader.transform.forward), leader.transform.rotation) as GameObject;
+		GameObject follower = Instantiate(drone, transform.position+new Vector3(10, -10, -10), leader.transform.rotation) as GameObject;
 		follower.GetComponent<Pilot>().Initialise (leader, this.gameObject, -1);
 		follower.name = "Left Wing";
-		GameObject follower2 = Instantiate(drone, Vector3.Scale(transform.position + new Vector3(0, -10, 0), leader.transform.forward), leader.transform.rotation) as GameObject;
+		GameObject follower2 = Instantiate(drone, transform.position + new Vector3(10, -10, 10), leader.transform.rotation) as GameObject;
 		follower2.GetComponent<Pilot>().Initialise (leader, this.gameObject, 1);
-		follower2.name = "Right Wing";*/
+		follower2.name = "Right Wing";
 	}
 	
 	// Update is called once per frame

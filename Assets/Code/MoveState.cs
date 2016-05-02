@@ -13,10 +13,12 @@ public class MoveState : State {
     // Update is called once per frame
     public override void Update()
     {
-        Debug.Log(owner.target.GetComponent<Boid>().myFSM.isAlive);
+        if (owner.debugMode)
+        {
+            Debug.Log(owner.target.GetComponent<Boid>().myFSM.isAlive);
+        }
         if (!owner.target.GetComponent <Boid>().myFSM.isAlive)
         {
-            Debug.Log("Hi "+owner.target.GetComponent<Boid>().myFSM.isAlive);
             owner.myBoid.targetPos = owner.home.transform.position;
         }
         else
@@ -32,7 +34,7 @@ public class MoveState : State {
         owner.StartCoroutine(Fire());
         owner.myBoid.isMoving = true;
         owner.myBoid.isAvoiding = true;
-        owner.myBoid.target = owner.target;
+        owner.myBoid.myTarget = owner.target;
     }
 	
 	public override void Exit()
@@ -46,7 +48,7 @@ public class MoveState : State {
     {
         while (true)
         {
-            GameObject bull = GameObject.Instantiate(owner.bullet, owner.transform.position, owner.transform.rotation) as GameObject;
+            GameObject bull = GameObject.Instantiate(owner.bullet, owner.transform.position, owner.transform.rotation * new Quaternion(0, 1, 0, -90)) as GameObject;
             bull.GetComponent<ProjectileMove>().Initialise(owner.tag);
             Physics.IgnoreCollision(bull.GetComponent<Collider>(), owner.GetComponent<Collider>());
             yield return new WaitForSeconds(5);
