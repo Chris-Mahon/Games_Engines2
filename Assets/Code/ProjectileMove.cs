@@ -6,6 +6,7 @@ public class ProjectileMove : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        StartCoroutine(ClearJunk());
     }
 
     public void Initialise(string source)
@@ -25,5 +26,10 @@ public class ProjectileMove : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+    }
+    IEnumerator ClearJunk()
+    {
+        yield return new WaitForSeconds(15);
+        Destroy(this.gameObject);
     }
 }

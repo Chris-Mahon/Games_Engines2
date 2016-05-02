@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class MotherBrain : FiniteStateMachine {
+public class MotherBrain : FiniteStateMachine
+{
 	public GameObject targetShip;
 	public GameObject drone;
 	public int remainingPeople;
 
 
 	// Use this for initialization
-	void Start () 
+	public override void Start () 
 	{
 		GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, 0), transform.rotation) as GameObject;
 		leader.GetComponent<Pilot>().Initialise(targetShip, this.gameObject);
@@ -22,7 +24,7 @@ public class MotherBrain : FiniteStateMachine {
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	public override void Update () 
 	{
 	
 	}

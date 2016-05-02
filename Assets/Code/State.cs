@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class State{
+public abstract class State
+{
     public Pilot owner;
 	// Use this for initialization
 	public State (Pilot owner)

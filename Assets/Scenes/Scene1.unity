@@ -89,6 +89,41 @@ NavMeshSettings:
 GameObject:
   m_PrefabParentObject: {fileID: 133086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
   m_PrefabInternal: {fileID: 975897789}
+--- !u!114 &855107861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855107856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994baa03ae37bdf45927e8a867831b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFSM: {fileID: 0}
+  fuel: 0
+  moveForce: {x: 0, y: 0, z: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  isMoving: 0
+  isAvoiding: 0
+  isRunning: 0
+  isWandering: 0
+--- !u!54 &855107862
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855107856}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &975897789
 Prefab:
   m_ObjectHideFlags: 0
@@ -138,11 +173,15 @@ Prefab:
       objectReference: {fileID: 109208, guid: da44771b76171624789e61f7f503f7da, type: 2}
     - target: {fileID: 11487174, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 133086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_TagString
       value: EnemyDrone
+      objectReference: {fileID: 0}
+    - target: {fileID: 133086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5433096, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
@@ -207,6 +246,25 @@ Prefab:
     - {fileID: 5479014, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1110809170 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 179006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
+  m_PrefabInternal: {fileID: 1068847417}
+--- !u!54 &1110809175
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1110809170}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1325963078
 GameObject:
   m_ObjectHideFlags: 0

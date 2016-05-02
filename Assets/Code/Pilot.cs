@@ -4,38 +4,32 @@ using System.Collections;
 public class Pilot : FiniteStateMachine
 {
     public bool isLeader;
-    public bool isAlive;
     public bool cannonReady;
 
     public float maxForce;
-    public Vector3 moveForce = Vector3.zero;
-
-    private int fuel;
-	public GameObject home;
+    public GameObject home;
 	public Vector3 targetPos;
     public GameObject bullet;
     public GameObject explosion;
     public int health = 10;
-    public State currState;
-	public string State = "";
-	public float speed;
+    public float maxFuel;
+    public Boid myBoid;
     [Header("Behaviour")]
-    public int avoidWeight;
-    public int moveWeight;
 	public GameObject target; 
 	public int offset = 0;
 
 	// Use this for initialization
-	void Start ()
+	public override void Start ()
     {
-
-	}
+        myBoid = GetComponent<Boid>();
+    }
 
     public void Initialise(GameObject leader, GameObject mother, int offset)
     {
         isLeader = false;
         isAlive = true;
-        fuel = 100;
+        myBoid = GetComponent<Boid>();
+        myBoid.fuel = maxFuel;
 		target = leader;
         home = mother;
 		this.offset = offset;
@@ -47,8 +41,10 @@ public class Pilot : FiniteStateMachine
     {
         isLeader = true;
         isAlive = true;
-        fuel = 100;
-		this.target = target;
+        myBoid = GetComponent<Boid>();
+        myBoid.fuel = maxFuel;
+        this.target = target;
+
         home = mother;
 		StateChange(new MoveState (this));
         transform.forward += targetPos;
@@ -58,21 +54,13 @@ public class Pilot : FiniteStateMachine
 	{
 		isLeader = true;
 		isAlive = true;
-		fuel = 100;
-        //maxMovement = 20;
+        myBoid = GetComponent<Boid>();
+        myBoid.fuel = maxFuel;
         StateChange(new MoveState(this));
     }
 
-    void Update ()
+    public override void Update ()
     {
-        if (cannonReady && isAlive)
-        {
-            GameObject bull = Instantiate(bullet, transform.position, transform.rotation) as GameObject;
-            bull.GetComponent<ProjectileMove>().Initialise(tag);
-            Physics.IgnoreCollision(bull.GetComponent<Collider>(), GetComponent<Collider>());
-            Debug.Log(bull.transform.forward - transform.forward);
-            cannonReady = false;
-        }
         if (isLeader)
         {
             if (State == "TargetSeeking")
@@ -81,15 +69,14 @@ public class Pilot : FiniteStateMachine
                 {
 
                     State = "Engaging";
-                    transform.forward = -transform.right;
-                    targetPos = transform.position + transform.forward * 50;
+                    targetPos = transform.position - (transform.right * 50);
                     StateChange(new CombatState(this));
                 }
             }
         }
         else
         {
-            if (target.GetComponent<Pilot>().State == "Engaging")
+            if (target.GetComponent<Boid>().myFSM.State == "Engaging")
             {
                 StateChange(new CombatState(this));
             }
@@ -108,7 +95,6 @@ public class Pilot : FiniteStateMachine
 		{
             currState.Update();
         }
-		transform.forward += moveForce*speed;
 	}
 
     void OnCollisionEnter(Collision collision)

@@ -13,7 +13,7 @@ public class CombatState : State
     // Update is called once per frame
     public override void Update()
     {
-        float totalWeight = (owner.avoidWeight + owner.moveWeight);
+        /*float totalWeight = (owner.avoidWeight + owner.moveWeight);
         Vector3 tempForce = Vector3.zero;
         Vector3 force = Vector3.zero;
 
@@ -41,12 +41,12 @@ public class CombatState : State
         force = Vector3.ClampMagnitude(force, owner.speed);
 
         Vector3 acceleration = force / owner.transform.gameObject.GetComponent<Rigidbody>().mass;
-        owner.moveForce += acceleration * Time.deltaTime;
+        omoveForce += acceleration * Time.deltaTime;
         owner.moveForce = Vector3.ClampMagnitude(owner.moveForce, owner.speed);
         if (owner.moveForce.magnitude > float.Epsilon)
         {
             owner.transform.position += owner.moveForce;
-        }
+        }*/
 
     }
 
@@ -58,7 +58,7 @@ public class CombatState : State
         float dist = toTarget.magnitude;
         float lookAhead = dist / owner.speed;
 
-        Vector3 offsetPursueTargetPos = target + (lookAhead * leader.GetComponent<Pilot>().moveForce);
+        Vector3 offsetPursueTargetPos = target + (lookAhead * leader.GetComponent<Boid>().moveForce);
         return Arrive(offsetPursueTargetPos);
     }
 
@@ -70,7 +70,7 @@ public class CombatState : State
         float distance = toTarget.magnitude;
         if (distance < 2f)
         {
-            owner.moveForce = Vector3.zero;
+            //owner.moveForce = Vector3.zero;
             return Vector3.zero;
         }
         float ramped = owner.speed * (distance / slowingDistance);
@@ -78,7 +78,7 @@ public class CombatState : State
         float clamped = Mathf.Min(ramped, owner.speed);
         Vector3 desired = clamped * (toTarget / distance);
 
-        return desired - owner.moveForce;
+        return desired;//- owner.moveForce;
     }
 
     private Vector3 ObsAvoidance()
@@ -88,13 +88,19 @@ public class CombatState : State
 
     public override void Enter()
     {
-        owner.speed = owner.maxForce/2;
+        //owner.speed = owner.maxForce/2;
         owner.State = "Engaging";
+        owner.myBoid.isMoving = true;
+        owner.myBoid.isAvoiding = true;
+        owner.myBoid.target = null;
+        owner.myBoid.targetPos = (owner.transform.position -(owner.transform.right*100));
     }
 
     public override void Exit()
     {
 
+        owner.myBoid.isMoving = false;
+        owner.myBoid.isAvoiding = false;
     }
 
     IEnumerator Fire()
