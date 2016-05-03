@@ -6,12 +6,13 @@ public class Pilot : FiniteStateMachine
     public bool cannonReady;
     public bool debugMode;
 
+
+    [Range(0.01f, 10)]
     public float maxForce;
-    public GameObject home;
 	public Vector3 targetPos;
     public GameObject bullet;
     public GameObject explosion;
-    public int health = 10;
+    
     public float maxFuel;
     public Boid myBoid;
     [Header("Behaviour")]
@@ -59,25 +60,49 @@ public class Pilot : FiniteStateMachine
 
     public override void Update ()
     {
+        if (myBoid.fuel < 800 && State != "dead")
+        {
+            StateChange(new ReturnState(this));
+        }
+        if (myBoid.fuel < 0 && State != "dead")
+        {
+            StateChange(new DeadState(this));
+        }
         if (isLeader)
         {
             if (State == "TargetSeeking")
             {
                 if (Vector3.Distance(transform.position, target.transform.position) < 200)
                 {
-
                     State = "Engaging";
                     targetPos = transform.position - (transform.right * 100);
                     StateChange(new CombatState(this));
                     myBoid.moveForce -= myBoid.moveForce / 4;
                 }
             }
+            else if (State == "Engaging")
+            {
+                if (Vector3.Distance(transform.position, myBoid.targetPos) < 30*maxForce)
+                {
+                    State = "Returning";
+                    targetPos = transform.position - (transform.right * 100);
+                    StateChange(new ReturnState(this));
+                    myBoid.moveForce -= myBoid.moveForce / 4;
+                }
+            }
         }
         else
         {
-            if (target.GetComponent<Boid>().myFSM.State == "Engaging")
+            if (target != null)
             {
-                StateChange(new CombatState(this));
+                if (target.GetComponent<Boid>().myFSM.State == "Engaging")
+                {
+                    StateChange(new CombatState(this));
+                }
+            }
+            else
+            {
+                StateChange(new ReturnState(this));
             }
         }
         if (health < 1)

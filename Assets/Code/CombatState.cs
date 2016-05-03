@@ -92,6 +92,8 @@ public class CombatState : State
         owner.State = "Engaging";
         owner.myBoid.isMoving = true;
         owner.myBoid.isAvoiding = true;
+        owner.speed = owner.maxForce;
+
         if (owner.isLeader)
         {
             owner.myBoid.myTarget = null;

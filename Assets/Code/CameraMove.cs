@@ -25,7 +25,7 @@ public class CameraMove : MonoBehaviour {
     {
         if (target == null)
         {
-            GameObject[] drones = GameObject.FindGameObjectsWithTag("AllyDrone");
+            GameObject[] drones = GameObject.FindGameObjectsWithTag(toFind.ToString());
             if (drones[0] == null)
             {
                 return;

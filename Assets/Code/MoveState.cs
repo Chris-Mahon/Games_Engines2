@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MoveState : State {
-
+public class MoveState : State
+{
     public Boid myBoid;
     // Use this for initialization
     public MoveState(Pilot owner):base(owner)
@@ -46,10 +46,11 @@ public class MoveState : State {
 
     IEnumerator Fire()
     {
-        while (true)
+        while (owner.isAlive)
         {
             GameObject bull = GameObject.Instantiate(owner.bullet, owner.transform.position, owner.transform.rotation * new Quaternion(0, 1, 0, -90)) as GameObject;
             bull.GetComponent<ProjectileMove>().Initialise(owner.tag);
+            bull.GetComponent<Rigidbody>().AddForce(owner.myBoid.moveForce);
             Physics.IgnoreCollision(bull.GetComponent<Collider>(), owner.GetComponent<Collider>());
             yield return new WaitForSeconds(5);
         }

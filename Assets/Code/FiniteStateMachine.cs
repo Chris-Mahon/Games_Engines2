@@ -9,10 +9,13 @@ public abstract class FiniteStateMachine : MonoBehaviour
     public int wanderWeight;
     public float speed;
     public bool isAlive;
+    [Range(0.01f, 30)]
+    public int health;
     public State currState;
     public string State = "";
     public bool isLeader = false;
     public int offset = 0;
+    public GameObject home;
 
     // Use this for initialization
     public abstract void Start();

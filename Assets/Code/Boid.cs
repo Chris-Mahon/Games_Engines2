@@ -50,7 +50,7 @@ public class Boid : MonoBehaviour {
         }
         if (isRunning)
         {
-            force += (Arrive(targetPos)/totalWeight)*myFSM.fleeWeight;
+            force += (Arrive(myFSM.home.transform.position)/totalWeight)*myFSM.fleeWeight;
         }
         if (isWandering)
         {
@@ -66,6 +66,10 @@ public class Boid : MonoBehaviour {
         {
             transform.position += moveForce * myFSM.speed;
             transform.forward += moveForce;
+            if (fuel > 0)
+            {
+                fuel -= moveForce.magnitude;
+            }
         }
     }
 
