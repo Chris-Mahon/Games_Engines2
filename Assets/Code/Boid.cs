@@ -27,7 +27,7 @@ public class Boid : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         Vector3 tempForce = Vector3.zero;
         Vector3 force = Vector3.zero;
@@ -41,7 +41,7 @@ public class Boid : MonoBehaviour {
             }
             else
             {
-                force += (OffsetPursue(myTarget, new Vector3(10*myFSM.offset, 0, -10)) / totalWeight) * myFSM.moveWeight;
+                force += (OffsetPursue(myTarget, new Vector3(20*myFSM.offset, 0, -0)) / totalWeight) * myFSM.moveWeight;
             }
         }
         if (isAvoiding)
@@ -94,9 +94,12 @@ public class Boid : MonoBehaviour {
 
     public Vector3 OffsetPursue(GameObject leader, Vector3 offset)
     {
-
+        if (leader == null)
+        {
+            return Vector3.zero;
+        }
         Vector3 target = leader.transform.TransformPoint(offset);
-        Vector3 toTarget = transform.position - target;
+        Vector3 toTarget = target - transform.position;
         float dist = toTarget.magnitude;
         float lookAhead = dist / myFSM.speed;
 
@@ -131,13 +134,6 @@ public class Boid : MonoBehaviour {
 
         return totalWeight;
     }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, targetPos);
-
-    }
-
 }
 
 

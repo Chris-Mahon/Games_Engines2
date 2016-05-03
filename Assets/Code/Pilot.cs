@@ -73,7 +73,7 @@ public class Pilot : FiniteStateMachine
                     myBoid.moveForce -= myBoid.moveForce / 4;
                 }
             }
-            else if (State == "Engaging")
+            else if (State == "Engaging" && isLeader)
             {
                 if (Vector3.Distance(transform.position, myBoid.targetPos) < 30*maxForce)
                 {
@@ -116,6 +116,10 @@ public class Pilot : FiniteStateMachine
 
     void OnCollisionEnter(Collision collision)
     {
+        if (!isAlive)
+        {
+            Destroy(this.gameObject);
+        }
         if (collision.gameObject.tag != tag)
         {
             this.health = 0;

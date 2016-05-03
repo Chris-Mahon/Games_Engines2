@@ -13,10 +13,6 @@ public class MoveState : State
     // Update is called once per frame
     public override void Update()
     {
-        if (owner.debugMode)
-        {
-            Debug.Log(owner.target.GetComponent<Boid>().myFSM.isAlive);
-        }
         if (!owner.target.GetComponent <Boid>().myFSM.isAlive)
         {
             owner.myBoid.targetPos = owner.home.transform.position;
@@ -46,13 +42,30 @@ public class MoveState : State
 
     IEnumerator Fire()
     {
-        while (owner.isAlive)
+        while (owner.State == "TargetSeeking")
         {
-            GameObject bull = GameObject.Instantiate(owner.bullet, owner.transform.position, owner.transform.rotation * new Quaternion(0, 1, 0, -90)) as GameObject;
-            bull.GetComponent<ProjectileMove>().Initialise(owner.tag);
-            bull.GetComponent<Rigidbody>().AddForce(owner.myBoid.moveForce);
-            Physics.IgnoreCollision(bull.GetComponent<Collider>(), owner.GetComponent<Collider>());
-            yield return new WaitForSeconds(5);
+            Debug.Log("pew");
+            GameObject shootingTarget = null;
+            GameObject[] targets = GameObject.FindGameObjectsWithTag(owner.enemyTag.ToString());
+            foreach (GameObject testedTarget in targets)
+            {
+                if (Vector3.Distance(testedTarget.transform.position, owner.transform.position)<30)
+                {
+                    shootingTarget = testedTarget;
+                }
+            }
+            if (shootingTarget != null)
+            {
+                GameObject bull = GameObject.Instantiate(owner.bullet, owner.transform.position + owner.transform.forward, owner.transform.rotation) as GameObject;
+                bull.GetComponent<ProjectileMove>().Initialise(owner.tag);
+                bull.transform.LookAt(shootingTarget.transform.position);
+                Physics.IgnoreCollision(bull.GetComponent<Collider>(), owner.GetComponent<Collider>());
+                yield return new WaitForSeconds(5);
+            }
+            else
+            {
+                yield return new WaitForSeconds(1);
+            }
         }
     }
 

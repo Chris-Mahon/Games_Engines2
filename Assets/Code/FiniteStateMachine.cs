@@ -23,6 +23,13 @@ public abstract class FiniteStateMachine : MonoBehaviour
     public GameObject bullet;
     public GameObject explosion;
 
+    public Targets enemyTag;
+    // Use this for initialization
+    public enum Targets
+    {
+        AllyDrone, EnemyDrone
+    }
+
     // Use this for initialization
     public abstract void Start();
 

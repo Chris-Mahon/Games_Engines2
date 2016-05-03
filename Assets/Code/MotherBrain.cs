@@ -7,7 +7,7 @@ public class MotherBrain : FiniteStateMachine
 	public GameObject targetShip;
 	public GameObject drone;
 
-    [Range(1, 100)]
+    [Range(0, 100)]
     public int remainingPeople;
 
 
@@ -16,15 +16,9 @@ public class MotherBrain : FiniteStateMachine
     {
         isAlive = true;
         home = gameObject;
-        GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, 0), transform.rotation) as GameObject;
-		leader.GetComponent<Pilot>().Initialise(targetShip, gameObject);
-		leader.name = "Leader";
-		GameObject follower = Instantiate(drone, transform.position+new Vector3(10, -10, -10), leader.transform.rotation) as GameObject;
-		follower.GetComponent<Pilot>().Initialise (leader, this.gameObject, -1);
-		follower.name = "Left Wing";
-		GameObject follower2 = Instantiate(drone, transform.position + new Vector3(10, -10, 10), leader.transform.rotation) as GameObject;
-		follower2.GetComponent<Pilot>().Initialise (leader, this.gameObject, 1);
-		follower2.name = "Right Wing";
+
+        myBoid = GetComponent<Boid>();
+        StartCoroutine(SpawnNewShips());
 	}
 
     // Update is called once per frame
@@ -44,6 +38,7 @@ public class MotherBrain : FiniteStateMachine
                 {
                     Debug.Log(drones[i].GetComponent<Boid>().fuel);
                     Destroy(drones[i]);
+                    remainingPeople++;
                 }
             }
         }
@@ -67,6 +62,46 @@ public class MotherBrain : FiniteStateMachine
         if (currState != null)
         {
             currState.Enter();
+        }
+    }
+
+    IEnumerator SpawnNewShips()
+    {
+        while (isAlive)
+        {
+
+
+            if (remainingPeople > 2)
+            {
+                Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * 5;
+                GameObject leader = Instantiate(drone, transform.position + new Vector3(0, -10, 0) + randomOffset, transform.rotation) as GameObject;
+                leader.GetComponent<Pilot>().Initialise(targetShip, gameObject);
+                leader.name = "Leader";
+                remainingPeople--;
+                if (remainingPeople > 0)
+                {
+                    GameObject follower = Instantiate(drone, transform.position + new Vector3(10, -10, -10) + randomOffset, leader.transform.rotation) as GameObject;
+                    follower.GetComponent<Pilot>().Initialise(leader, this.gameObject, -1);
+                    follower.name = "Left Wing";
+                    remainingPeople--;
+                }
+
+                if (remainingPeople > 0)
+                {
+                    GameObject follower2 = Instantiate(drone, transform.position + new Vector3(10, -10, 10) + randomOffset, leader.transform.rotation) as GameObject;
+                    follower2.GetComponent<Pilot>().Initialise(leader, this.gameObject, 1);
+                    follower2.name = "Right Wing";
+                    remainingPeople--;
+                }
+            }
+            else if (remainingPeople > 0)
+            {
+                GameObject leader = Instantiate(drone, transform.position + new Vector3(0, -10, 0) + UnityEngine.Random.insideUnitSphere*5, transform.rotation) as GameObject;
+                leader.GetComponent<Pilot>().Initialise(targetShip, gameObject);
+                leader.name = "Leader";
+                remainingPeople--;
+            }
+            yield return new WaitForSeconds(15);
         }
     }
 }
