@@ -114,7 +114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.73000002, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .75, y: .75, z: 1.5}
   m_Children:
   - {fileID: 424454}
@@ -226,7 +226,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: .200000003
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -270,24 +270,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd407241e8c5f74db3c341e1de9f117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeader: 0
-  isAlive: 0
-  cannonReady: 0
   avoidWeight: 2
   moveWeight: 1
   fleeWeight: 4
-  maxForce: 1
+  wanderWeight: 0
+  speed: 3
+  isAlive: 0
+  health: 10
+  State: 
+  isLeader: 0
+  offset: 0
   home: {fileID: 0}
+  cannonReady: 0
+  debugMode: 0
+  maxForce: 1
   targetPos: {x: 0, y: 0, z: 0}
   bullet: {fileID: 146410, guid: 31762b63b8f397249a5b7a6b03e6bf8f, type: 2}
   explosion: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
-  health: 10
-  State: 
-  speed: 1
-  maxFuel: 0
+  maxFuel: 2000
   myBoid: {fileID: 0}
   target: {fileID: 0}
-  offset: 0
 --- !u!114 &11470104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,12 +302,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myFSM: {fileID: 0}
-  fuel: 0
+  fuel: 1800
   moveForce: {x: 0, y: 0, z: 0}
   targetPos: {x: 0, y: 0, z: 0}
+  myTarget: {fileID: 0}
   isMoving: 0
   isAvoiding: 0
   isRunning: 0
+  isWandering: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -327,7 +331,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: speed
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
@@ -355,7 +359,7 @@ Prefab:
       objectReference: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: cannonReady
@@ -372,6 +376,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: fleeWeight
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fuel
+      value: 1800
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxFuel
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

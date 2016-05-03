@@ -107,16 +107,4 @@ public class CombatState : State
         owner.myBoid.isMoving = false;
         owner.myBoid.isAvoiding = false;
     }
-
-    IEnumerator Fire()
-    {
-        while (true)
-        {
-            owner.cannonReady = true;
-            
-            yield return new WaitForSeconds(10);
-        }
-    }
-
-
 }

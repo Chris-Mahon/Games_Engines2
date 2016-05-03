@@ -16,6 +16,12 @@ public abstract class FiniteStateMachine : MonoBehaviour
     public bool isLeader = false;
     public int offset = 0;
     public GameObject home;
+    public Boid myBoid;
+    [Range(0.01f, 10)]
+    public float maxForce;
+    public GameObject target;
+    public GameObject bullet;
+    public GameObject explosion;
 
     // Use this for initialization
     public abstract void Start();

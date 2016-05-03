@@ -7,16 +7,9 @@ public class Pilot : FiniteStateMachine
     public bool debugMode;
 
 
-    [Range(0.01f, 10)]
-    public float maxForce;
 	public Vector3 targetPos;
-    public GameObject bullet;
-    public GameObject explosion;
     
     public float maxFuel;
-    public Boid myBoid;
-    [Header("Behaviour")]
-	public GameObject target; 
 
 	// Use this for initialization
 	public override void Start ()

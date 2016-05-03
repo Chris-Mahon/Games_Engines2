@@ -104,7 +104,7 @@ MonoBehaviour:
   fuel: 0
   moveForce: {x: 0, y: 0, z: 0}
   targetPos: {x: 0, y: 0, z: 0}
-  target: {fileID: 0}
+  myTarget: {fileID: 0}
   isMoving: 0
   isAvoiding: 0
   isRunning: 0
@@ -133,7 +133,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_LocalPosition.y
@@ -141,7 +141,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -61.6229515
+      value: -1000
       objectReference: {fileID: 0}
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -149,7 +149,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .707106829
+      value: .70710659
       objectReference: {fileID: 0}
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_LocalRotation.z
@@ -157,7 +157,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_LocalRotation.w
-      value: .707106829
+      value: -.707106948
       objectReference: {fileID: 0}
     - target: {fileID: 433086, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: m_RootOrder
@@ -166,7 +166,7 @@ Prefab:
     - target: {fileID: 11487174, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: targetShip
       value: 
-      objectReference: {fileID: 179006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
+      objectReference: {fileID: 1110809170}
     - target: {fileID: 11487174, guid: e2aa65984454a4e4190cfb1fb037198d, type: 2}
       propertyPath: drone
       value: 
@@ -196,7 +196,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 479006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 9.46557999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -204,7 +204,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 479006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -24.4925175
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -212,11 +212,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 479006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 479006, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
       propertyPath: m_LocalRotation.w
@@ -242,6 +242,10 @@ Prefab:
       propertyPath: m_TagString
       value: AllyDrone
       objectReference: {fileID: 0}
+    - target: {fileID: 11479014, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5479014, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: cc788efe5f4bac940bf4101d9a1c594e, type: 2}
@@ -265,6 +269,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1110809176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1110809170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994baa03ae37bdf45927e8a867831b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFSM: {fileID: 0}
+  fuel: 0
+  moveForce: {x: 0, y: 0, z: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  myTarget: {fileID: 0}
+  isMoving: 0
+  isAvoiding: 0
+  isRunning: 0
+  isWandering: 0
 --- !u!1 &1325963078
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,8 +338,8 @@ Camera:
   m_GameObject: {fileID: 1325963078}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: .0735294074, g: .133164316, b: .25, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

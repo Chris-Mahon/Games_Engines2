@@ -3,9 +3,9 @@ using System.Collections;
 
 public abstract class State
 {
-    public Pilot owner;
+    public FiniteStateMachine owner;
 	// Use this for initialization
-	public State (Pilot owner)
+	public State (FiniteStateMachine owner)
     {
         this.owner = owner;
 	}

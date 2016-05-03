@@ -29,6 +29,7 @@ GameObject:
   - 64: {fileID: 6409206}
   - 114: {fileID: 11409206}
   - 54: {fileID: 5409206}
+  - 114: {fileID: 11423128}
   m_Layer: 0
   m_Name: Enemy Ship
   m_TagString: EnemyDrone
@@ -72,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109208}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.8000002, y: 24, z: -16.8999996}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 409206}
@@ -164,7 +165,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -208,22 +209,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd407241e8c5f74db3c341e1de9f117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeader: 0
+  avoidWeight: 2
+  moveWeight: 1
+  fleeWeight: 4
+  wanderWeight: 0
+  speed: 3
   isAlive: 0
-  cannonReady: 0
-  maxForce: 1
-  moveForce: {x: 0, y: 0, z: 0}
+  health: 10
+  State: 
+  isLeader: 0
+  offset: 0
   home: {fileID: 0}
+  cannonReady: 0
+  debugMode: 0
+  maxForce: 1.60000002
   targetPos: {x: 0, y: 0, z: 0}
   bullet: {fileID: 146410, guid: 31762b63b8f397249a5b7a6b03e6bf8f, type: 2}
   explosion: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
-  health: 10
-  State: 
-  speed: 1
-  avoidWeight: 2
-  moveWeight: 1
+  maxFuel: 2000
+  myBoid: {fileID: 0}
   target: {fileID: 0}
-  offset: 0
+--- !u!114 &11423128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994baa03ae37bdf45927e8a867831b0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFSM: {fileID: 0}
+  fuel: 2000
+  moveForce: {x: 0, y: 0, z: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  myTarget: {fileID: 0}
+  isMoving: 0
+  isAvoiding: 0
+  isRunning: 0
+  isWandering: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -237,11 +262,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: speed
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: maxForce
-      value: 1
+      value: 1.60000002
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: health
@@ -253,12 +278,36 @@ Prefab:
       objectReference: {fileID: 100004, guid: 6e8c7c425e5bc374daf95a774767b1e3, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: bullet
       value: 
       objectReference: {fileID: 146410, guid: 31762b63b8f397249a5b7a6b03e6bf8f, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fleeWeight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fuel
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxFuel
+      value: 2000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 109208}

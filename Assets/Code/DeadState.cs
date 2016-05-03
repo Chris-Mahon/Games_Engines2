@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DeadState : State {
     // Use this for initialization
-    public DeadState(Pilot owner):base(owner)
+    public DeadState(FiniteStateMachine owner):base(owner)
     {
 
     }

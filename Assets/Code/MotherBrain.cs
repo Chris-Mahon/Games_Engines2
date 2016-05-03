@@ -6,7 +6,9 @@ public class MotherBrain : FiniteStateMachine
 {
 	public GameObject targetShip;
 	public GameObject drone;
-	public int remainingPeople;
+
+    [Range(1, 100)]
+    public int remainingPeople;
 
 
 	// Use this for initialization
@@ -16,7 +18,7 @@ public class MotherBrain : FiniteStateMachine
         home = gameObject;
         GameObject leader = Instantiate(drone, transform.position+new Vector3(0, -10, 0), transform.rotation) as GameObject;
 		leader.GetComponent<Pilot>().Initialise(targetShip, gameObject);
-		leader.name = "Ally Leader";
+		leader.name = "Leader";
 		GameObject follower = Instantiate(drone, transform.position+new Vector3(10, -10, -10), leader.transform.rotation) as GameObject;
 		follower.GetComponent<Pilot>().Initialise (leader, this.gameObject, -1);
 		follower.name = "Left Wing";
@@ -28,6 +30,10 @@ public class MotherBrain : FiniteStateMachine
     // Update is called once per frame
     public override void Update()
     {
+        if (health < 0)
+        {
+            StateChange(new DeadState(this));
+        }
         GameObject[] drones = GameObject.FindGameObjectsWithTag(tag);
 
         for (int i = 0; i < drones.Length; i++)
@@ -47,7 +53,20 @@ public class MotherBrain : FiniteStateMachine
     {
         if (collision.gameObject.tag != tag)
         {
-            this.health = 0;
+            this.health--;
+        }
+    }
+
+    void StateChange(State newState)
+    {
+        if (currState != null)
+        {
+            currState.Exit();
+        }
+        currState = newState;
+        if (currState != null)
+        {
+            currState.Enter();
         }
     }
 }
